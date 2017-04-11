@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright (c) 2017 Enio Rodrigo Marconcini
+# Copyright (c) 2017 eniorm
 # BSD Licence
 # 
 # SIMPLE BASH SHELL SCRIPT TO BACKUP DATABASES
