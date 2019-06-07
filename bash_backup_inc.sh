@@ -38,9 +38,15 @@ TAR=$(which tar)
 TAR_EXCLUSOES="-X /root/scripts/tar.exclude"
 TAR_EXCLUSOES_MAIS="-X /root/scripts/tar.exclude.mais"
 
-# DEFINIR O USO DO COMPACTADOR PIGZ OU GZIP
-TAR_FLAGS="-I pigz -c -p -f" # USANDO O PIGZ
-#TAR_FLAGS="-c -z -p -f" # FAZ USO DO GZIP NORMAL DO SISTEMA
+# DEFINIR O USO DO PIGZ OU GZIP CONVENCIONAL PARA COMPACTAÇÃO
+# SE O PIGZ ESTIVER INSTALADO NO SISTEMA, SERÁ USADO, SENÃO, O GZIP
+PIGZ=$(which pigz)
+GZIP=$(which gzip)
+if [ -f ${PIGZ} ] ; then
+	TAR_FLAGS="-I ${PIGZ} -c -p -f"
+else
+	TAR_FLAGS="-I ${GZIP} -c -p -f"
+fi
 
 FIND=$(which find)
 FIND_FLAGS="-type f -mmin -900 -print"
