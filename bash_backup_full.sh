@@ -19,6 +19,12 @@ set -u # ABORTAR A EXECUÇÃO SE ENCONTRAR ALGUMA VARIÁVEL NÃO DEFINIDA
 TESTE=0
 
 
+# QUAL COMPACTADOR DEVE SER UTILIZADO
+# (CASO O PIGZ NÃO ESTEJA INSTALADO, SERÁ USADO O GZIP)
+# 0 - DEFAULT(PIGZ)
+# 1 - GZIP
+ZIP=0
+
 
 # DEVE SER EXECUTADO SOMENTE PELO ROOR
 if [ $(whoami) != "root" ] ; then
@@ -40,13 +46,14 @@ TAR_EXCLUSOES_MAIS="-X /root/scripts/tar.exclude.mais"
 
 # DEFINIR O USO DO PIGZ OU GZIP CONVENCIONAL PARA COMPACTAÇÃO
 # SE O PIGZ ESTIVER INSTALADO NO SISTEMA, SERÁ USADO, SENÃO, O GZIP
-PIGZ=$(which pigz)
+PIGZ=$(which pigz 2> /dev/null)
 GZIP=$(which gzip)
-if [ -f ${PIGZ} ] ; then
-	TAR_FLAGS="-I ${PIGZ} -c -p -f"
+if [[ -f ${PIGZ} && ${ZIP} -eq 0 ]] ; then
+        ZIP=${PIGZ}
 else
-	TAR_FLAGS="-I ${GZIP} -c -p -f"
+        ZIP=${GZIP}
 fi
+TAR_FLAGS="-I ${ZIP} -c -p -f"
 
 # DEFINIR PELO MENOS UMA PASTA PARA EXECUÇÃO DO BACKUP
 SETORES="administracao "
