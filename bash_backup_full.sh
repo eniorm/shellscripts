@@ -37,7 +37,10 @@ DESTINO="${STORAGE}/backup_samba/${DIR}/${DATA}"
 TAR=$(which tar)
 TAR_EXCLUSOES="-X /root/scripts/tar.exclude"
 TAR_EXCLUSOES_MAIS="-X /root/scripts/tar.exclude.mais"
-TAR_FLAGS="-I pigz -c -p -f"
+
+# DEFINIR O USO DO COMPACTADOR PIGZ OU GZIP
+TAR_FLAGS="-I pigz -c -p -f" # USANDO O PIGZ
+#TAR_FLAGS="-c -z -p -f" # FAZ USO DO GZIP NORMAL DO SISTEMA
 
 # DEFINIR PELO MENOS UMA PASTA PARA EXECUÇÃO DO BACKUP
 SETORES="administracao "
