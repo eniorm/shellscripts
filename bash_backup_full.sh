@@ -83,7 +83,7 @@ do
 done
 
 # CASO A EXECUÇÃO DO SCRIPT FOR PARA TESTES, SERÁ ENCERRADO AQUI
-test $TESTE -eq 1 && { echo "*** EXECUÇÃO DO TESTE ENCERRADO ***"; exit 0; }
+test ${TESTE} -eq 1 && { echo "*** EXECUÇÃO DO TESTE ENCERRADO ***"; exit 0; }
 
 # BACKUP - STI SEM EXCLUSÕES
 cd "${DISCO1}"
